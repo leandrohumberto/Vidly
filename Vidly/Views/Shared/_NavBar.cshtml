@@ -1,12 +1,18 @@
-﻿<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+﻿@using Vidly.Utils
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
     @Html.ActionLink("Vidly", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
     <button class="navbar-toggler" aria-expanded="false" aria-controls="navbarColor01" aria-label="Toggle navigation" type="button" data-target="#navbarColor01" data-toggle="collapse">
         <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarColor01">
         <ul class="navbar-nav mr-auto">
-            <li class="nav-item">@Html.ActionLink("Customers", "Index", "Customers", null, new { @class = "nav-link" })</li>
-            <li class="nav-item">@Html.ActionLink("Movies", "Index", "Movies", null, new { @class = "nav-link" })</li>
+            <li class="nav-item @Html.IsActive("Customers", "Index")">
+                @Html.ActionLink("Customers", "Index", "Customers", null, new { @class = "nav-link" })
+            </li>
+            <li class="nav-item @Html.IsActive("Movies", "Index")">
+                @Html.ActionLink("Movies", "Index", "Movies", null, new { @class = "nav-link" })
+            </li>
         </ul>
     </div>
 </nav>
