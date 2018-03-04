@@ -1,0 +1,30 @@
+﻿@model IList<Vidly.Models.Customer>
+@{
+    ViewBag.Title = "Customers";
+}
+
+<h1>Customers</h1>
+
+@if (Model == null || Model.Count == 0)
+{
+    <text>We don't have any customers yet.</text>
+}
+else
+{
+    <table class="table	table-bordered table-hover">
+        <thead>
+            <tr>
+                <th scope="col">Customer</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var customer in Model)
+            {
+                <tr class="table-light">
+                    <td>@Html.ActionLink(customer.Name, "Details", new { id = customer.Id })</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
