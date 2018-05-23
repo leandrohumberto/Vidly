@@ -5,7 +5,7 @@ namespace Vidly.Utils
     public static class Extensions
     {
         /// <summary>
-        /// Extension method thaat returns an HTML class used by Bootstrap framework in order to 
+        /// Extension method that returns an HTML class used by Bootstrap framework in order to 
         /// highlight a navigation item when the corresponding page is active.
         /// </summary>
         /// <param name="html"></param>
@@ -15,14 +15,19 @@ namespace Vidly.Utils
         /// Source: http://www.codingeverything.com/2014/05/mvcbootstrapactivenavbar.html
         public static string IsActive(this HtmlHelper html, string controller, string action)
         {
+            var controllerIsActive = !string.IsNullOrWhiteSpace(IsActive(html, controller));
             var routedData = html.ViewContext.RouteData;
-
             var routeAction = (string)routedData.Values["action"];
+
+            var isActive = routeAction.Equals(action) && controllerIsActive;
+            return isActive ? "active" : string.Empty;
+        }
+
+        public static string IsActive(this HtmlHelper html, string controller)
+        {
+            var routedData = html.ViewContext.RouteData;
             var routeController = (string)routedData.Values["controller"];
-
-            var returnActive = routeController.Equals(controller) && routeAction.Equals(action);
-
-            return returnActive ? "active" : string.Empty;
+            return routeController.Equals(controller) ? "active" : string.Empty;
         }
     }
 }
