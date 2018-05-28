@@ -24,6 +24,7 @@ namespace Vidly.Controllers
         {
             var viewModel = new CustomerFormViewModel
             {
+                Customer = new Customer(),
                 MembershipTypes = _context.MembershipTypes
             };
 
@@ -31,12 +32,24 @@ namespace Vidly.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult Save(Customer customer)
         {
             // _context.Customers.AddOrUpdate(customer);
 
             // Could it be dangerous???
             // https://www.michaelgmccarthy.com/2016/08/24/entity-framework-addorupdate-is-a-destructive-operation/
+
+            if (!ModelState.IsValid) // If the model isn't valid, redirect to the CustomerForm passing the same Customer object
+            {
+                var viewModel = new CustomerFormViewModel
+                {
+                    Customer = customer,
+                    MembershipTypes = _context.MembershipTypes
+                };
+
+                return View("CustomerForm", viewModel); // The form controls gonna be filled with Model data and the error messages
+            }
 
             if (customer.Id == 0)
             {
