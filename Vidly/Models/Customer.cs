@@ -12,6 +12,7 @@ namespace Vidly.Models
         public string Name { get; set; }
 
         [Display(Name = "Date of Birth")]
+        // [Range(typeof(DateTime), "1/1/1800", "12/31/2999", ErrorMessage = "Value for date of birth must be between {1} and {2}")]
         [Min18YearsIfAMember]
         public DateTime? Birthdate { get; set; }
 
